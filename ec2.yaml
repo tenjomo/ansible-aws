@@ -9,11 +9,11 @@
 
     - name: Gather facts
       setup:
-            
+
     - name: Print python version
       debug:
         msg: "Using Python {{ ansible_python_version }}"
-              
+
     - name: Install dependencies
       shell: "/usr/bin/python3.10 -m pip install {{ item }}"
       loop:
@@ -22,16 +22,16 @@
 
   vars:
     ansible_python_interpreter: /usr/bin/python3.10
-    keypair: Mumbai
+    keypair: jenkins-ansible
     instance_type: t2.micro
-    image_id: ami-0f5ee92e2d63afc18
+    image_id: ami-01d21b7be69801c2f
     wait: yes
     group: webserver
     count: 1
-    region: ap-south-1
+    region: eu-west-3
     security_group: ec2-security-group
     tag_name:
-      Name: Aj-ec2   
+      Name: TH-ec2   
 
   tasks:
     - name: Create a security group
@@ -74,15 +74,12 @@
         region: "{{ region }}"
         key_name: "{{ keypair }}"
         count: "{{ count }}"
-<<<<<<< HEAD:ec2.yml
-=======
         tags: "{{ tag_name }}"
->>>>>>> 8a4f7adb77293a7d086f98dfa3d01770078bbc46:ec2.yaml
         user_data: |
           #!/bin/bash
           sudo apt update -y
           sudo apt install docker.io -y
           sudo systemctl start docker
           sudo systemctl enable docker
-          sudo docker run -d --name 2048 -p 3000:3000 sevenajay/2048:latest
+          sudo docker run -d --name 2048 -p 3000:3000 tenjomo/2048:latest
       register: ec2

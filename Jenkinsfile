@@ -11,7 +11,7 @@ pipeline {
         }
         stage('checkout'){
             steps{
-                git branch: 'main', url: 'https://github.com/Aj7Ay/ANSIBLE.git'
+                git branch: 'main', url: 'https://github.com/tenjomo/ansible-aws.git'
             }
         }
         stage('TRIVY FS SCAN') {
